@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './layout/home/home.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { SideBarComponent } from './layout/side-bar/side-bar.component';
 import { LayoutService } from './service/layout/layout.service';
 import { LoginComponent } from './layout/login/login.component';
@@ -15,6 +15,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtModule } from '@auth0/angular-jwt';
 import { RegisterComponent } from './layout/register/register.component';
+import { UserInformationComponent } from './layout/user-information/user-information.component';
+import { UserInfoService } from './service/information/user-info.service';
+import {CalendarModule} from 'primeng/calendar';    
 
 export function tokenGetter(){
   return localStorage.getItem('auth_token')
@@ -27,23 +30,28 @@ export function tokenGetter(){
     NavbarComponent,
     SideBarComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    UserInformationComponent
   ],
   imports: [
+    CalendarModule,
     BrowserModule,
+    NgbNavModule,
     AppRoutingModule,
     FormsModule,
     NgbModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    
     ToastrModule.forRoot(),
     JwtModule.forRoot({
       config: {
-        tokenGetter: tokenGetter
+        tokenGetter: tokenGetter,
+        allowedDomains: ['localhost:5000']
       }
     })
   ],
-  providers: [LayoutService, AuthenticationService],
+  providers: [LayoutService, AuthenticationService, UserInfoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,7 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { LayoutService } from '../../service/layout/layout.service';
 import { AuthenticationService } from '../../service/authentication/authentication.service';
+import { UserInfoService } from '../../service/information/user-info.service';
 
 
 @Component({
@@ -8,13 +9,16 @@ import { AuthenticationService } from '../../service/authentication/authenticati
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
-  username: string = "Kevin";
+export class NavbarComponent implements OnInit{
+  username: string | null = "";
   avatar: any = "assets/img/profile-img.jpg"
   searchQuery: any;
 
-  constructor(public layoutService: LayoutService, public authenService: AuthenticationService){
+  constructor(public layoutService: LayoutService, public authenService: AuthenticationService, ){
 
+  }
+  ngOnInit(): void {
+    this.username = localStorage.getItem('username') != null ? localStorage.getItem('username') : 'Người dùng';
   }
   
   logout(){

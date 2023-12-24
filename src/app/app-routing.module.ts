@@ -5,22 +5,27 @@ import { LoginComponent } from './layout/login/login.component';
 import { AuthGuard } from './service/auth.guard';
 import { LoginGuard } from './service/login.guard';
 import { RegisterComponent } from './layout/register/register.component';
+import { UserInformationComponent } from './layout/user-information/user-information.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   {
     path: 'login',
     component: LoginComponent,
-    canActivate: [LoginGuard]
+    // canActivate: [LoginGuard]
   },
   {
     path: 'register',
     component: RegisterComponent,
-    canActivate: [LoginGuard]
+    // canActivate: [LoginGuard]
+  },
+  {
+    path: 'information',
+    component: UserInformationComponent
   }
 ];
 
