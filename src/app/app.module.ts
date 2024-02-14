@@ -17,7 +17,9 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { RegisterComponent } from './layout/register/register.component';
 import { UserInformationComponent } from './layout/user-information/user-information.component';
 import { UserInfoService } from './service/information/user-info.service';
-import {CalendarModule} from 'primeng/calendar';    
+import {CalendarModule} from 'primeng/calendar';
+import { DocumentUploadComponent } from './layout/document-upload/document-upload.component';    
+import { MultiSelectModule } from 'primeng/multiselect';
 
 export function tokenGetter(){
   return localStorage.getItem('auth_token')
@@ -31,7 +33,8 @@ export function tokenGetter(){
     SideBarComponent,
     LoginComponent,
     RegisterComponent,
-    UserInformationComponent
+    UserInformationComponent,
+    DocumentUploadComponent
   ],
   imports: [
     CalendarModule,
@@ -42,7 +45,7 @@ export function tokenGetter(){
     NgbModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    
+    MultiSelectModule,
     ToastrModule.forRoot(),
     JwtModule.forRoot({
       config: {

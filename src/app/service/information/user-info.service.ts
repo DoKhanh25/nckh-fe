@@ -11,7 +11,9 @@ export class UserInfoService {
 
   constructor(public httpClient: HttpClient) { }
 
-
+  getAllInformation(): Observable<any>{
+    return this.httpClient.get<ResultModel>(`${this.baseUrl}/allInfo`);
+  }
   getInformation(): Observable<ResultModel>{
     return this.httpClient.get<ResultModel>(`${this.baseUrl}/info`);
   }
