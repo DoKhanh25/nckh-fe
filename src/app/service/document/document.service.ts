@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ResultModel } from '../../model/result.model';
+import { CopyrightModel } from '../../model/copyright.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,10 +13,19 @@ export class DocumentService {
   constructor(public httpClient: HttpClient) { }
 
 
-  uploadFile(file: File): Observable<any>{
+  uploadFile(file: File, obj: CopyrightModel): Observable<any>{
     const formData: FormData = new FormData();
-    formData.append('file', file, file.name);
-    return this.httpClient.post( `${this.baseUrl}/uploadFile`, formData);
-    ;
+    formData.append('file', file);
+    formData.append('title', obj.title);
+    formData.append('note', obj.note);
+    formData.append('authorAccounts', obj.authorAccounts.join(','));
+    formData.append('authorIds', obj.authorIds.join(','));
+    formData.append('registerName', obj.registerName);
+    
+    return this.httpClient.post(`${this.baseUrl}/uploadFile`, formData);
+  }
+
+  createRegisterCopyright(obj: any) {
+    return this.httpClient.post<any>(`${this.baseUrl}/registerCopyright`, obj);
   }
 }

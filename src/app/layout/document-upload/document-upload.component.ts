@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserInfoService } from '../../service/information/user-info.service';
 import { DocumentService } from '../../service/document/document.service';
+import { CopyrightModel } from '../../model/copyright.model';
 
 @Component({
   selector: 'app-document-upload',
@@ -8,15 +9,16 @@ import { DocumentService } from '../../service/document/document.service';
   styleUrl: './document-upload.component.css'
 })
 export class DocumentUploadComponent implements OnInit{
-  copyrightInfo = {
+  copyrightInfo: CopyrightModel = {
     registerName: "",
     authorNames: [] as any[],
     authorAccounts: [] as any[],
     authorIds: [] as any[],
     title: "",
-    note: "", 
-    docFile: {} as File
-  }
+    note: ""
+    }
+
+    fileUpload: any;
 
 
   authorAccountsOption: string[] = [];
@@ -49,6 +51,7 @@ export class DocumentUploadComponent implements OnInit{
       }
       )
   }
+
   multiSelectedChange(){
     this.accountsInfoData.forEach((value) => {
       if(this.copyrightInfo.authorAccounts.includes(value.username)
@@ -77,9 +80,22 @@ export class DocumentUploadComponent implements OnInit{
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
-    console.log(file);
-    this.copyrightInfo.docFile = file;
+    this.fileUpload = file;    
+  }
+
+  onSubmit(){
+    console.log(this.copyrightInfo);
     
+    this.documentService.createRegisterCopyright(this.copyrightInfo).subscribe((res) => {
+      console.log(res);
+    },
+    (err) => {
+      console.log(err);
+    });
+
+    this.documentService.uploadFile(this.fileUpload, this.copyrightInfo).subscribe((res) => {console.log(res);
+    })
+  
   }
 
   
