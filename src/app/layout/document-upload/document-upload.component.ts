@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserInfoService } from '../../service/information/user-info.service';
-
+import { DocumentService } from '../../service/document/document.service';
 
 @Component({
   selector: 'app-document-upload',
@@ -10,16 +10,22 @@ import { UserInfoService } from '../../service/information/user-info.service';
 export class DocumentUploadComponent implements OnInit{
   copyrightInfo = {
     registerName: "",
-    authorNames: "",
-    authorAccounts: [],
-    authorIds: "",
+    authorNames: [] as any[],
+    authorAccounts: [] as any[],
+    authorIds: [] as any[],
     title: "",
-    note: ""  
+    note: "", 
+    docFile: {} as File
   }
+
+
   authorAccountsOption: string[] = [];
+  accountsInfoData: any[] = [];
+  authorNames: string = "";
+  authorIds: string = "";
 
 
-  constructor(public userInformationService: UserInfoService){
+  constructor(public userInformationService: UserInfoService, public documentService: DocumentService){
 
   }
 
@@ -29,14 +35,53 @@ export class DocumentUploadComponent implements OnInit{
 
     this.userInformationService.getAllInformation().subscribe(
       (res) => {
+        this.accountsInfoData = res.data
         console.log(res.data);
-        for(let i =0; i <= res.data.length; i++){
+        for(let i = 0; i <= res.data.length; i++){
           let x = res.data[i].username || "";
           this.authorAccountsOption.push(x);
         }
         
-      })
+      },
+      (err) => {
+        console.log(err);
+        
+      }
+      )
+  }
+  multiSelectedChange(){
+    this.accountsInfoData.forEach((value) => {
+      if(this.copyrightInfo.authorAccounts.includes(value.username)
+      && !this.copyrightInfo.authorIds.includes(value.avatar)
+      && !this.copyrightInfo.authorIds.includes(value.fullname)
+      ){
+        this.copyrightInfo.authorIds.push(value.avatar);
+        this.copyrightInfo.authorNames.push(value.fullname);
+      } else if(!this.copyrightInfo.authorAccounts.includes(value.username)){
+        let id= this.copyrightInfo.authorIds.indexOf(value.avatar);
+        let name = this.copyrightInfo.authorNames.indexOf(value.fullname);
+        if(id > -1) { 
+          this.copyrightInfo.authorIds.splice(id, 1);
+        }
+        if(name > -1){
+          this.copyrightInfo.authorNames.splice(name, 1);
+        }
+      
+      }
+    })
+
+     this.authorIds = this.copyrightInfo.authorIds.join(',');
+     this.authorNames = this.copyrightInfo.authorNames.join(',');
 
   }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    console.log(file);
+    this.copyrightInfo.docFile = file;
+    
+  }
+
+  
 
 }

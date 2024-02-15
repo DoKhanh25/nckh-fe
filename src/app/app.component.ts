@@ -1,4 +1,4 @@
-import { Component, OnInit  } from '@angular/core';
+import { AfterViewInit, Component, OnInit  } from '@angular/core';
 import { LayoutService } from './service/layout/layout.service';
 import { Router, NavigationEnd } from '@angular/router';
 
@@ -7,7 +7,7 @@ import { Router, NavigationEnd } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, AfterViewInit{
   title = 'Hyperledger';
   isLoginPage: any;
   constructor(public layoutService: LayoutService, public routerService: Router){
@@ -25,6 +25,10 @@ export class AppComponent implements OnInit{
   checkLoginRoute(url: string) {
     this.isLoginPage = (url === '/login' || url === '/register');
   }
+
+  ngAfterViewInit() {
+   
+   }
   
   
 
