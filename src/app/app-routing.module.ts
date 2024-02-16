@@ -7,6 +7,7 @@ import { LoginGuard } from './service/login.guard';
 import { RegisterComponent } from './layout/register/register.component';
 import { UserInformationComponent } from './layout/user-information/user-information.component';
 import { DocumentUploadComponent } from './layout/document-upload/document-upload.component';
+import { CopyrightInfoComponent } from './copyright-info/copyright-info/copyright-info.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
@@ -29,8 +30,12 @@ const routes: Routes = [
     component: UserInformationComponent
   },
   {
-    path: 'document',
+    path: 'registerCopyright',
     component: DocumentUploadComponent
+  },
+  {
+    path: 'copyrightInfo',
+    component: CopyrightInfoComponent
   }
 ];
 

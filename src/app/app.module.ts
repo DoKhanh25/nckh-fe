@@ -20,6 +20,7 @@ import { UserInfoService } from './service/information/user-info.service';
 import {CalendarModule} from 'primeng/calendar';
 import { DocumentUploadComponent } from './layout/document-upload/document-upload.component';    
 import { MultiSelectModule } from 'primeng/multiselect';
+import { CopyrightInfoComponent } from './copyright-info/copyright-info/copyright-info.component';
 
 export function tokenGetter(){
   return localStorage.getItem('auth_token')
@@ -34,7 +35,8 @@ export function tokenGetter(){
     LoginComponent,
     RegisterComponent,
     UserInformationComponent,
-    DocumentUploadComponent
+    DocumentUploadComponent,
+    CopyrightInfoComponent
   ],
   imports: [
     CalendarModule,

@@ -28,4 +28,8 @@ export class DocumentService {
   createRegisterCopyright(obj: any) {
     return this.httpClient.post<any>(`${this.baseUrl}/registerCopyright`, obj);
   }
+
+  getRegisterInfo(): Observable<ResultModel> {
+    return this.httpClient.get<ResultModel>(`${this.baseUrl}/getCopyrightInfo`);
+  }
 }
