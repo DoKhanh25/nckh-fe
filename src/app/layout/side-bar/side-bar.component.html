@@ -2,7 +2,7 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="role == '1'">
         <a class="nav-link" routerLink="/registerCopyright">
           <i class="bi bi-grid"></i>
           <span>Đăng kí bản quyền</span>

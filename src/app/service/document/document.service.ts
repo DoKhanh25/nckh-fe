@@ -32,4 +32,17 @@ export class DocumentService {
   getRegisterInfo(): Observable<ResultModel> {
     return this.httpClient.get<ResultModel>(`${this.baseUrl}/getCopyrightInfo`);
   }
+
+  getAllRegisterInfo(): Observable<ResultModel> {
+    return this.httpClient.get<ResultModel>(`${this.baseUrl}/admin/getAllRegister`);
+  }
+
+  getFile(id: any): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrl}/getFile/${id}`, {
+    responseType: "arraybuffer"});
+  }
+
+  acceptCopyright(obj: any): Observable<ResultModel> {
+    return this.httpClient.post<ResultModel>(`${this.baseUrl}/admin/acceptCopyright`, obj);
+  }
 }

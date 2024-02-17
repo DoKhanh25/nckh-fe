@@ -18,8 +18,10 @@
                       <th data-type="date" data-format="YYYY/DD/MM">Thời điểm đăng kí</th>
                       <th>Người đăng kí</th>
                       <th>Tác giả</th>
-                      <th>Tình trạng</th>
                       <th>Ghi chú</th>
+                      <th>Tình trạng</th>
+                      <th>Bài viết</th>
+                      <th *ngIf="role == '2'">Phê duyệt</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -30,9 +32,8 @@
                         <td>{{item.author_identity}}</td>
                         <td>{{item.note}}</td>
                         <td >{{item.status == 0 ? 'Chưa duyệt' : 'Đã duyệt'}}</td>
-
-
-
+                        <td><button class="btn btn-primary" (click)="getFileClick(item.id)">Xem bài</button></td>
+                        <td *ngIf="role == '2'"><button class="btn btn-primary">Phê duyệt</button></td>
 
                     </tr>
                   </tbody>

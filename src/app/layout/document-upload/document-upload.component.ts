@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserInfoService } from '../../service/information/user-info.service';
 import { DocumentService } from '../../service/document/document.service';
 import { CopyrightModel } from '../../model/copyright.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-document-upload',
@@ -27,7 +28,9 @@ export class DocumentUploadComponent implements OnInit{
   authorIds: string = "";
 
 
-  constructor(public userInformationService: UserInfoService, public documentService: DocumentService){
+  constructor(public userInformationService: UserInfoService, 
+    public documentService: DocumentService,
+    public toastService: ToastrService){
 
   }
 
@@ -47,7 +50,7 @@ export class DocumentUploadComponent implements OnInit{
       },
       (err) => {
         console.log(err);
-        
+        this.toastService.error("Lỗi server")
       }
       )
   }
@@ -83,9 +86,7 @@ export class DocumentUploadComponent implements OnInit{
     this.fileUpload = file;    
   }
 
-  onSubmit(){
-    console.log(this.copyrightInfo);
-    
+  onSubmit(){    
     this.documentService.createRegisterCopyright(this.copyrightInfo).subscribe((res) => {
       console.log(res);
     },
