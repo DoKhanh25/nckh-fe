@@ -33,7 +33,7 @@
                         <td>{{item.note}}</td>
                         <td >{{item.status == 0 ? 'Chưa duyệt' : 'Đã duyệt'}}</td>
                         <td><button class="btn btn-primary" (click)="getFileClick(item.id)">Xem bài</button></td>
-                        <td *ngIf="role == '2'"><button class="btn btn-primary">Phê duyệt</button></td>
+                        <td *ngIf="role == '2'"><button class="btn btn-primary" (click)="acceptDocumentClick(item.id)">Phê duyệt</button></td>
 
                     </tr>
                   </tbody>

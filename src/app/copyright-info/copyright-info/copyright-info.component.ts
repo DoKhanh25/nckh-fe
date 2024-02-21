@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DocumentService } from '../../service/document/document.service';
 import moment from 'moment';
 import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-copyright-info',
@@ -9,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './copyright-info.component.css'
 })
 export class CopyrightInfoComponent implements OnInit {
-  constructor(public documentService: DocumentService, public httpClient: HttpClient){
+  constructor(public documentService: DocumentService, public httpClient: HttpClient, public toastrService: ToastrService){
 
   }
   role: any;
@@ -54,13 +55,20 @@ export class CopyrightInfoComponent implements OnInit {
         window.open(fileURL);
       },
       (error) => {
-        console.log(error)
+        this.toastrService.error("Lỗi server")
       }
     )
   }
 
   acceptDocumentClick(id: any){
-
+    this.documentService.acceptCopyright({id: id}).subscribe((res) => {
+      if(res){
+        this.toastrService.info("Thành công")
+      }
+    },
+    (err) => {
+      this.toastrService.error("Lỗi server")
+    })
   }
   
 }
