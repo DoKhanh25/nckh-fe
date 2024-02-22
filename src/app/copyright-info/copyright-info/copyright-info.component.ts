@@ -10,12 +10,15 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './copyright-info.component.css'
 })
 export class CopyrightInfoComponent implements OnInit {
-  constructor(public documentService: DocumentService, public httpClient: HttpClient, public toastrService: ToastrService){
+  constructor(
+    public documentService: DocumentService, 
+    public httpClient: HttpClient, 
+    public toastrService: ToastrService
+    ){
 
   }
   role: any;
   tableData: any[] = [];
-
 
   ngOnInit(): void {
     this.role = localStorage.getItem("role") || "";
@@ -64,6 +67,7 @@ export class CopyrightInfoComponent implements OnInit {
     this.documentService.acceptCopyright({id: id}).subscribe((res) => {
       if(res){
         this.toastrService.info(res.message);
+        this.ngOnInit()
       }
     },
     (err) => {

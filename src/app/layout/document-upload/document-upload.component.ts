@@ -35,7 +35,6 @@ export class DocumentUploadComponent implements OnInit{
   }
 
   ngOnInit(): void {
-  
     this.copyrightInfo.registerName = localStorage.getItem("username") || ""; 
 
     this.userInformationService.getAllInformation().subscribe(
@@ -100,9 +99,4 @@ export class DocumentUploadComponent implements OnInit{
     )
   
   }
-
- 
-
-  
-
 }
