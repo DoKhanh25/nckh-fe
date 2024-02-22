@@ -6,4 +6,5 @@ export interface InformationModel {
     email: string;
     birthday: Date | undefined;
     avatar: string;
+    author_identity: string;
 }
