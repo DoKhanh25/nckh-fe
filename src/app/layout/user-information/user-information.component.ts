@@ -24,7 +24,8 @@ export class UserInformationComponent implements OnInit{
     address: "",
     email: "",
     birthday: undefined,
-    avatar: ""
+    avatar: "",
+    author_identity: ""
   }
 
 

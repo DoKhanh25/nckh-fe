@@ -13,7 +13,7 @@ export class DocumentService {
   constructor(public httpClient: HttpClient) { }
 
 
-  uploadFile(file: File, obj: CopyrightModel): Observable<any>{
+  uploadFile(file: File, obj: CopyrightModel): Observable<ResultModel>{
     const formData: FormData = new FormData();
     formData.append('file', file);
     formData.append('title', obj.title);
@@ -22,7 +22,7 @@ export class DocumentService {
     formData.append('authorIds', obj.authorIds.join(','));
     formData.append('registerName', obj.registerName);
     
-    return this.httpClient.post(`${this.baseUrl}/uploadFile`, formData);
+    return this.httpClient.post<ResultModel>(`${this.baseUrl}/uploadFile`, formData);
   }
 
   createRegisterCopyright(obj: any) {

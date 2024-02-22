@@ -17,9 +17,9 @@ export class DocumentUploadComponent implements OnInit{
     authorIds: [] as any[],
     title: "",
     note: ""
-    }
+  }
 
-    fileUpload: any;
+  fileUpload: any;
 
 
   authorAccountsOption: string[] = [];
@@ -40,8 +40,9 @@ export class DocumentUploadComponent implements OnInit{
 
     this.userInformationService.getAllInformation().subscribe(
       (res) => {
+
         this.accountsInfoData = res.data
-        console.log(res.data);
+
         for(let i = 0; i <= res.data.length; i++){
           let x = res.data[i].username || "";
           this.authorAccountsOption.push(x);
@@ -58,13 +59,13 @@ export class DocumentUploadComponent implements OnInit{
   multiSelectedChange(){
     this.accountsInfoData.forEach((value) => {
       if(this.copyrightInfo.authorAccounts.includes(value.username)
-      && !this.copyrightInfo.authorIds.includes(value.avatar)
+      && !this.copyrightInfo.authorIds.includes(value.author_identity)
       && !this.copyrightInfo.authorIds.includes(value.fullname)
       ){
-        this.copyrightInfo.authorIds.push(value.avatar);
+        this.copyrightInfo.authorIds.push(value.author_identity);
         this.copyrightInfo.authorNames.push(value.fullname);
       } else if(!this.copyrightInfo.authorAccounts.includes(value.username)){
-        let id= this.copyrightInfo.authorIds.indexOf(value.avatar);
+        let id = this.copyrightInfo.authorIds.indexOf(value.author_identity);
         let name = this.copyrightInfo.authorNames.indexOf(value.fullname);
         if(id > -1) { 
           this.copyrightInfo.authorIds.splice(id, 1);
@@ -76,28 +77,31 @@ export class DocumentUploadComponent implements OnInit{
       }
     })
 
-     this.authorIds = this.copyrightInfo.authorIds.join(',');
-     this.authorNames = this.copyrightInfo.authorNames.join(',');
+     this.authorIds = this.copyrightInfo.authorIds.join(', ');
+     this.authorNames = this.copyrightInfo.authorNames.join(', ');
 
   }
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
-    this.fileUpload = file;    
+    this.fileUpload = file;
   }
 
   onSubmit(){    
-    this.documentService.createRegisterCopyright(this.copyrightInfo).subscribe((res) => {
-      console.log(res);
-    },
-    (err) => {
-      console.log(err);
-    });
 
-    this.documentService.uploadFile(this.fileUpload, this.copyrightInfo).subscribe((res) => {console.log(res);
-    })
+    this.documentService.uploadFile(this.fileUpload, this.copyrightInfo).subscribe(
+      (res) => {
+        this.toastService.info(res.message);
+        this.ngOnInit();
+      },
+      (err) => {
+        this.toastService.error("Lỗi server")
+      }
+    )
   
   }
+
+ 
 
   
 

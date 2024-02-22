@@ -17,7 +17,7 @@
                       </th>
                       <th data-type="date" data-format="YYYY/DD/MM">Thời điểm đăng kí</th>
                       <th>Người đăng kí</th>
-                      <th>Tác giả</th>
+                      <th>Số chứng minh tác giả</th>
                       <th>Ghi chú</th>
                       <th>Tình trạng</th>
                       <th>Bài viết</th>
@@ -29,11 +29,11 @@
                         <td>{{item.title}}</td>
                         <td>{{convertDateFormat(item.updateTime)}}</td>
                         <td>{{item.updateBy}}</td>
-                        <td>{{item.author_identity}}</td>
+                        <td>{{item.author_identity.split(',').join(', ')}}</td>
                         <td>{{item.note}}</td>
                         <td >{{item.status == 0 ? 'Chưa duyệt' : 'Đã duyệt'}}</td>
                         <td><button class="btn btn-primary" (click)="getFileClick(item.id)">Xem bài</button></td>
-                        <td *ngIf="role == '2'"><button class="btn btn-primary" (click)="acceptDocumentClick(item.id)">Phê duyệt</button></td>
+                        <td *ngIf="role == '2'"><button class="btn btn-primary" [disabled]="item.status == 0 ? false:true " (click)="acceptDocumentClick(item.id)">Phê duyệt</button></td>
 
                     </tr>
                   </tbody>

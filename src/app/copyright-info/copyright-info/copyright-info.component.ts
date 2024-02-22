@@ -63,11 +63,11 @@ export class CopyrightInfoComponent implements OnInit {
   acceptDocumentClick(id: any){
     this.documentService.acceptCopyright({id: id}).subscribe((res) => {
       if(res){
-        this.toastrService.info("Thành công")
+        this.toastrService.info(res.message);
       }
     },
     (err) => {
-      this.toastrService.error("Lỗi server")
+      this.toastrService.error("Lỗi server");
     })
   }
   
